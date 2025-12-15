@@ -18952,7 +18952,7 @@ class AAssets extends _a_node_js__WEBPACK_IMPORTED_MODULE_0__.ANode {
       loaded.push(new Promise(function (resolve, reject) {
         // Set in cache because we won't be needing to call three.js loader if we have.
         // a loaded media element.
-        three__WEBPACK_IMPORTED_MODULE_2__.Cache.add(imgEls[i].getAttribute('src'), imgEl);
+        three__WEBPACK_IMPORTED_MODULE_2__.Cache.add('image:' + imgEls[i].getAttribute('src'), imgEl);
         if (imgEl.complete) {
           resolve();
           return;
@@ -19087,13 +19087,6 @@ function mediaElementLoaded(el) {
 
       // Compare seconds buffered to media duration.
       if (secondsBuffered >= el.duration) {
-        // Set in cache because we won't be needing to call three.js loader if we have.
-        // a loaded media element.
-        // Store video elements only. three.js loader is used for audio elements.
-        // See assetParse too.
-        if (el.tagName === 'VIDEO') {
-          three__WEBPACK_IMPORTED_MODULE_2__.Cache.add(el.getAttribute('src'), el);
-        }
         resolve();
       }
     }
@@ -61626,7 +61619,7 @@ if (_utils_index_js__WEBPACK_IMPORTED_MODULE_16__.device.isBrowserEnvironment) {
   window.logs = debug;
   __webpack_require__(/*! ./style/aframe.css */ "./src/style/aframe.css");
 }
-console.log('A-Frame Version: 1.7.1 (Date 2025-11-12, Commit #9050d128)');
+console.log('A-Frame Version: 1.7.1 (Date 2025-12-15, Commit #3c530445)');
 console.log('THREE Version (https://github.com/supermedium/three.js):', _lib_three_js__WEBPACK_IMPORTED_MODULE_1__["default"].REVISION);
 
 // Wait for ready state, unless user asynchronously initializes A-Frame.

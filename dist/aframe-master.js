@@ -7580,7 +7580,7 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
     }
     el.setAttribute('tracked-controls', {
       hand: data.hand,
-      idPrefix: GAMEPAD_ID_PREFIX,
+      id: GAMEPAD_ID_PREFIX,
       iterateControllerProfiles: true
     });
     if (!this.data.defaultModel) {
@@ -9089,7 +9089,7 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
     var data = this.data;
     el.setAttribute('tracked-controls', {
       // TODO: verify expected behavior between reserved prefixes.
-      idPrefix: GAMEPAD_ID,
+      id: GAMEPAD_ID,
       hand: data.hand,
       controller: this.controllerIndex
     });
@@ -11696,7 +11696,7 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
     var data = this.data;
     el.setAttribute('tracked-controls', {
       // TODO: verify expected behavior between reserved prefixes.
-      idPrefix: GAMEPAD_ID_COMPOSITE,
+      id: GAMEPAD_ID_COMPOSITE,
       hand: data.hand,
       controller: this.controllerIndex
     });
@@ -13145,7 +13145,7 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
     var data = this.data;
     el.setAttribute('tracked-controls', {
       hand: data.hand,
-      idPrefix: GAMEPAD_ID_PREFIX
+      id: GAMEPAD_ID_PREFIX
     });
     if (!this.data.model) {
       return;
@@ -13348,7 +13348,7 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
     var data = this.data;
     el.setAttribute('tracked-controls', {
       // TODO: verify expected behavior between reserved prefixes.
-      idPrefix: GAMEPAD_ID,
+      id: GAMEPAD_ID,
       hand: data.hand,
       controller: this.controllerIndex
     });
@@ -17245,7 +17245,7 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
     return true;
   },
   /**
-   * Handle update controller match criteria (such as `id`, `idPrefix`, `hand`, `controller`)
+   * Handle update controller match criteria (such as `id`, `hand`, `controller`)
    */
   updateController: function () {
     this.controller = _utils_tracked_controls_js__WEBPACK_IMPORTED_MODULE_1__.findMatchingControllerWebXR(this.system.controllers, this.data.id, this.data.hand, this.data.controller, this.data.iterateControllerProfiles, this.data.handTrackingEnabled);
@@ -17579,7 +17579,7 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
 
     // If we have an OpenVR Gamepad, use the fixed mapping.
     el.setAttribute('tracked-controls', {
-      idPrefix: GAMEPAD_ID_PREFIX,
+      id: GAMEPAD_ID_PREFIX,
       // Hand IDs: 1 = right, 0 = left, 2 = anything else.
       controller: data.hand === 'right' ? 1 : data.hand === 'left' ? 0 : 2,
       hand: data.hand
@@ -17861,7 +17861,7 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
 
     // If we have an OpenVR Gamepad, use the fixed mapping.
     el.setAttribute('tracked-controls', {
-      idPrefix: GAMEPAD_ID_PREFIX,
+      id: GAMEPAD_ID_PREFIX,
       hand: data.hand,
       controller: this.controllerIndex
     });
@@ -18096,7 +18096,7 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
   injectTrackedControls: function () {
     var el = this.el;
     el.setAttribute('tracked-controls', {
-      idPrefix: GAMEPAD_ID_PREFIX
+      id: GAMEPAD_ID_PREFIX
     });
     if (!this.data.model) {
       return;
@@ -18626,7 +18626,7 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
   injectTrackedControls: function () {
     var data = this.data;
     this.el.setAttribute('tracked-controls', {
-      idPrefix: GAMEPAD_ID_PREFIX,
+      id: GAMEPAD_ID_PREFIX,
       controller: data.pair,
       hand: data.hand
     });
@@ -61620,7 +61620,7 @@ if (_utils_index_js__WEBPACK_IMPORTED_MODULE_16__.device.isBrowserEnvironment) {
   window.logs = debug;
   __webpack_require__(/*! ./style/aframe.css */ "./src/style/aframe.css");
 }
-console.log('A-Frame Version: 1.7.1 (Date 2025-12-15, Commit #a3fb17db)');
+console.log('A-Frame Version: 1.7.1 (Date 2025-12-15, Commit #c12d8ec8)');
 console.log('THREE Version (https://github.com/supermedium/three.js):', _lib_three_js__WEBPACK_IMPORTED_MODULE_1__["default"].REVISION);
 
 // Wait for ready state, unless user asynchronously initializes A-Frame.

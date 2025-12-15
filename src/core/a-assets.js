@@ -41,7 +41,7 @@ class AAssets extends ANode {
       loaded.push(new Promise(function (resolve, reject) {
         // Set in cache because we won't be needing to call three.js loader if we have.
         // a loaded media element.
-        THREE.Cache.add(imgEls[i].getAttribute('src'), imgEl);
+        THREE.Cache.add('image:' + imgEls[i].getAttribute('src'), imgEl);
         if (imgEl.complete) {
           resolve();
           return;
@@ -166,13 +166,6 @@ function mediaElementLoaded (el) {
 
       // Compare seconds buffered to media duration.
       if (secondsBuffered >= el.duration) {
-        // Set in cache because we won't be needing to call three.js loader if we have.
-        // a loaded media element.
-        // Store video elements only. three.js loader is used for audio elements.
-        // See assetParse too.
-        if (el.tagName === 'VIDEO') {
-          THREE.Cache.add(el.getAttribute('src'), el);
-        }
         resolve();
       }
     }

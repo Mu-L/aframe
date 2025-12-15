@@ -12599,9 +12599,6 @@ var componentConfig = {
       this.updateThumbstickTouchV3orPROorPlus(evt);
       return;
     }
-    for (var axis in evt.detail) {
-      this.buttonObjects.thumbstick.rotation[this.axisMap[axis]] = this.buttonRanges.thumbstick.originalRotation[this.axisMap[axis]] - Math.PI / 8 * evt.detail[axis] * (axis === 'y' || this.data.hand === 'right' ? -1 : 1);
-    }
   },
   axisMap: {
     y: 'x',
@@ -61621,7 +61618,7 @@ if (_utils_index_js__WEBPACK_IMPORTED_MODULE_16__.device.isBrowserEnvironment) {
   window.logs = debug;
   __webpack_require__(/*! ./style/aframe.css */ "./src/style/aframe.css");
 }
-console.log('A-Frame Version: 1.7.1 (Date 2025-12-15, Commit #cb3f6a2d)');
+console.log('A-Frame Version: 1.7.1 (Date 2025-12-15, Commit #f70e1434)');
 console.log('THREE Version (https://github.com/supermedium/three.js):', _lib_three_js__WEBPACK_IMPORTED_MODULE_1__["default"].REVISION);
 
 // Wait for ready state, unless user asynchronously initializes A-Frame.

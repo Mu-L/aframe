@@ -10993,14 +10993,15 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
     this.controllerEventsActive = false;
   },
   checkIfControllerPresent: function () {
-    var controllerObject3D = this.controllerObject3D;
-    if (controllerObject3D) {
-      controllerObject3D.visible = false;
-    }
     (0,_utils_tracked_controls_js__WEBPACK_IMPORTED_MODULE_2__.checkControllerPresentAndSetup)(this, GAMEPAD_ID, {
       hand: this.data.hand,
       iterateControllerProfiles: true
     });
+    // Set visibility based on actual controller presence after the check that
+    // set this.controllerPresent
+    if (this.controllerObject3D) {
+      this.controllerObject3D.visible = this.controllerPresent;
+    }
   },
   injectTrackedControls: function () {
     var el = this.el;
@@ -12387,14 +12388,15 @@ var componentConfig = {
     this.controllerEventsActive = false;
   },
   checkIfControllerPresent: function () {
-    var controllerObject3D = this.controllerObject3D;
-    if (controllerObject3D) {
-      controllerObject3D.visible = false;
-    }
     (0,_utils_tracked_controls_js__WEBPACK_IMPORTED_MODULE_2__.checkControllerPresentAndSetup)(this, GAMEPAD_ID_PREFIX, {
       hand: this.data.hand,
       iterateControllerProfiles: true
     });
+    // Set visibility based on actual controller presence after the check that
+    // set this.controllerPresent
+    if (this.controllerObject3D) {
+      this.controllerObject3D.visible = this.controllerPresent;
+    }
   },
   play: function () {
     this.checkIfControllerPresent();
@@ -61618,7 +61620,7 @@ if (_utils_index_js__WEBPACK_IMPORTED_MODULE_16__.device.isBrowserEnvironment) {
   window.logs = debug;
   __webpack_require__(/*! ./style/aframe.css */ "./src/style/aframe.css");
 }
-console.log('A-Frame Version: 1.7.1 (Date 2025-12-15, Commit #f70e1434)');
+console.log('A-Frame Version: 1.7.1 (Date 2025-12-15, Commit #a3fb17db)');
 console.log('THREE Version (https://github.com/supermedium/three.js):', _lib_three_js__WEBPACK_IMPORTED_MODULE_1__["default"].REVISION);
 
 // Wait for ready state, unless user asynchronously initializes A-Frame.

@@ -8485,7 +8485,7 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
     xrSession.requestReferenceSpace(referenceSpaceType).then(function (referenceSpace) {
       self.referenceSpace = referenceSpace;
     }).catch(function (error) {
-      self.el.sceneEl.systems.webxr.warnIfFeatureNotRequested(referenceSpaceType, 'tracked-controls-webxr uses reference space ' + referenceSpaceType);
+      self.el.sceneEl.systems.webxr.warnIfFeatureNotRequested(referenceSpaceType, 'tracked-controls uses reference space ' + referenceSpaceType);
       throw error;
     });
   },
@@ -17215,8 +17215,8 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
   },
   init: function () {
     this.buttonEventDetails = {};
-    this.buttonStates = this.el.components['tracked-controls'].buttonStates = {};
-    this.axis = this.el.components['tracked-controls'].axis = [0, 0, 0];
+    this.buttonStates = {};
+    this.axis = [0, 0, 0];
     this.changedAxes = [];
     this.axisMoveEventDetail = {
       axis: this.axis,
@@ -17250,8 +17250,6 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
    */
   updateController: function () {
     this.controller = _utils_tracked_controls_js__WEBPACK_IMPORTED_MODULE_1__.findMatchingControllerWebXR(this.system.controllers, this.data.id, this.data.hand, this.data.controller, this.data.iterateControllerProfiles, this.data.handTrackingEnabled);
-    // Legacy handle to the controller for old components.
-    this.el.components['tracked-controls'].controller = this.controller;
   },
   tick: function () {
     var sceneEl = this.el.sceneEl;
@@ -61623,7 +61621,7 @@ if (_utils_index_js__WEBPACK_IMPORTED_MODULE_16__.device.isBrowserEnvironment) {
   window.logs = debug;
   __webpack_require__(/*! ./style/aframe.css */ "./src/style/aframe.css");
 }
-console.log('A-Frame Version: 1.7.1 (Date 2025-12-15, Commit #147adb21)');
+console.log('A-Frame Version: 1.7.1 (Date 2025-12-15, Commit #cb3f6a2d)');
 console.log('THREE Version (https://github.com/supermedium/three.js):', _lib_three_js__WEBPACK_IMPORTED_MODULE_1__["default"].REVISION);
 
 // Wait for ready state, unless user asynchronously initializes A-Frame.

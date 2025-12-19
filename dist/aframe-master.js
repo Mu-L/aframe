@@ -18943,6 +18943,26 @@ class AAssets extends _a_node_js__WEBPACK_IMPORTED_MODULE_0__.ANode {
     this.fileLoader = fileLoader;
     this.timeout = null;
   }
+
+  /**
+   * Override connectedCallback to initialize at 'interactive' instead of 'complete'.
+   * This allows the timeout mechanism to work before loading the images.
+   * If we wait for 'complete', all resources (including images) are already loaded.
+   */
+  connectedCallback() {
+    var self = this;
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      this.doConnectedCallback();
+      return;
+    }
+    document.addEventListener('readystatechange', function onReadyStateChange() {
+      if (document.readyState !== 'interactive' && document.readyState !== 'complete') {
+        return;
+      }
+      document.removeEventListener('readystatechange', onReadyStateChange);
+      self.doConnectedCallback();
+    });
+  }
   doConnectedCallback() {
     var self = this;
     var i;
@@ -21996,8 +22016,41 @@ class AScene extends _a_entity_js__WEBPACK_IMPORTED_MODULE_7__.AEntity {
   removeFullScreenStyles() {
     document.documentElement.classList.remove('a-fullscreen');
   }
-  doConnectedCallback() {
+
+  /**
+   * Override connectedCallback to set up renderer and loading screen at 'interactive'.
+   * This allows the loading screen to appear before a-assets starts loading,
+   * while systems initialization still waits for 'complete' (via aframeready) to handle deferred scripts.
+   */
+  connectedCallback() {
     var self = this;
+    var readyState = document.readyState;
+
+    // Set up renderer and loading screen at 'interactive' so they're visible during asset loading.
+    if (readyState === 'interactive' || readyState === 'complete') {
+      this.setupRendererAndLoadingScreen();
+    } else {
+      document.addEventListener('readystatechange', function onReadyStateChange() {
+        if (document.readyState !== 'interactive' && document.readyState !== 'complete') {
+          return;
+        }
+        document.removeEventListener('readystatechange', onReadyStateChange);
+        self.setupRendererAndLoadingScreen();
+      });
+    }
+
+    // Wait for 'complete' (aframeready) before initializing systems.
+    super.connectedCallback();
+  }
+
+  /**
+   * Set up renderer and loading screen early so they're visible during asset loading.
+   */
+  setupRendererAndLoadingScreen() {
+    if (this.rendererSetup) {
+      return;
+    }
+    this.rendererSetup = true;
     var embedded = this.hasAttribute('embedded');
 
     // Default components.
@@ -22006,7 +22059,6 @@ class AScene extends _a_entity_js__WEBPACK_IMPORTED_MODULE_7__.AEntity {
     this.setAttribute('screenshot', '');
     this.setAttribute('xr-mode-ui', '');
     this.setAttribute('device-orientation-permission-ui', '');
-    super.doConnectedCallback();
 
     // Renderer initialization
     setupCanvas(this);
@@ -22016,6 +22068,14 @@ class AScene extends _a_entity_js__WEBPACK_IMPORTED_MODULE_7__.AEntity {
     if (!embedded) {
       this.addFullScreenStyles();
     }
+  }
+  doConnectedCallback() {
+    var self = this;
+
+    // Renderer may already be set up from connectedCallback at 'interactive'.
+    // If not, set it up now.
+    this.setupRendererAndLoadingScreen();
+    super.doConnectedCallback();
     (0,_postMessage_js__WEBPACK_IMPORTED_MODULE_9__.initPostMessageAPI)(this);
     (0,_metaTags_js__WEBPACK_IMPORTED_MODULE_0__.inject)(this);
     (0,_wakelock_js__WEBPACK_IMPORTED_MODULE_1__.initWakelock)(this);
@@ -61673,7 +61733,7 @@ if (_utils_index_js__WEBPACK_IMPORTED_MODULE_16__.device.isBrowserEnvironment) {
   window.logs = debug;
   __webpack_require__(/*! ./style/aframe.css */ "./src/style/aframe.css");
 }
-console.log('A-Frame Version: 1.7.1 (Date 2025-12-19, Commit #0d5e1e23)');
+console.log('A-Frame Version: 1.7.1 (Date 2025-12-19, Commit #53d5b3db)');
 console.log('THREE Version (https://github.com/supermedium/three.js):', _lib_three_js__WEBPACK_IMPORTED_MODULE_1__["default"].REVISION);
 
 // Wait for ready state, unless user asynchronously initializes A-Frame.

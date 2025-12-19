@@ -6924,6 +6924,9 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
       default: 1500,
       min: 0
     },
+    hand: {
+      default: ''
+    },
     mouseCursorStylesEnabled: {
       default: true
     },
@@ -7202,6 +7205,10 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
    * Trigger mousedown and keep track of the mousedowned entity.
    */
   onCursorDown: function (evt) {
+    // Filter WebXR events by handedness when hand is configured.
+    if (evt.type === 'selectstart' && this.data.hand && evt.inputSource.handedness !== this.data.hand) {
+      return;
+    }
     this.isCursorDown = true;
     // Raycast again for touch.
     if (this.data.rayOrigin === 'mouse' && evt.type === 'touchstart') {
@@ -7233,6 +7240,10 @@ var Component = (0,_core_component_js__WEBPACK_IMPORTED_MODULE_0__.registerCompo
    */
   onCursorUp: function (evt) {
     if (!this.isCursorDown) {
+      return;
+    }
+    // Filter WebXR events by handedness when hand is configured.
+    if (evt && evt.type === 'selectend' && this.data.hand && evt.inputSource.handedness !== this.data.hand) {
       return;
     }
     if (this.data.rayOrigin === 'xrselect' && this.activeXRInput !== evt.inputSource) {
@@ -9351,7 +9362,8 @@ __webpack_require__.r(__webpack_exports__);
         el.setAttribute('raycaster', 'showLine', true);
       }
       el.setAttribute('cursor', _utils_index_js__WEBPACK_IMPORTED_MODULE_1__.extend({
-        fuse: false
+        fuse: false,
+        hand: data.hand
       }, controllerConfig.cursor));
     }
     function hideRay(evt) {
@@ -61661,7 +61673,7 @@ if (_utils_index_js__WEBPACK_IMPORTED_MODULE_16__.device.isBrowserEnvironment) {
   window.logs = debug;
   __webpack_require__(/*! ./style/aframe.css */ "./src/style/aframe.css");
 }
-console.log('A-Frame Version: 1.7.1 (Date 2025-12-18, Commit #be93909a)');
+console.log('A-Frame Version: 1.7.1 (Date 2025-12-19, Commit #0d5e1e23)');
 console.log('THREE Version (https://github.com/supermedium/three.js):', _lib_three_js__WEBPACK_IMPORTED_MODULE_1__["default"].REVISION);
 
 // Wait for ready state, unless user asynchronously initializes A-Frame.
